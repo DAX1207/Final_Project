@@ -22,7 +22,7 @@ export default function buy({ cartList }) {
           .reduce((prev, next) => prev + next)
           .toFixed(2)}
       </p>
-      <button id="Buy-Button" onClick={buy(cartList)}>
+      <button id="Buy-Button">
         <span>Buy</span>
       </button>
     </div>

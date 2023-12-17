@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function CartList({ cartList, onClickEmpty, onClickRemove }) {
   const navigate = useNavigate();
   const buy = () => {
-    navigate("/buy");
+    navigate("/buy(cartList)", cartList);
   };
 
   return (
@@ -36,7 +36,7 @@ export default function CartList({ cartList, onClickEmpty, onClickRemove }) {
           <button className="Remove-Button" onClick={onClickEmpty}>
             Empty Cart
           </button>
-          <button id="Buy-Button" onClick={buy(cartList)}>
+          <button id="Buy-Button" onClick={buy}>
             <span>Buy-Total: $</span>
             {cartList
               .map((item) => parseFloat(item.price.replace("$", "")))
