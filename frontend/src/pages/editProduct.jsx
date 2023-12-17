@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 export default function AddProduct() {
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: "",
@@ -16,23 +17,43 @@ export default function AddProduct() {
 
     const [postResponse, setPostResponse] = useState("");
 
+    async function handleFindDB() {
+        console.log
+        const id = searchParams.get("id");
+        const response = await fetch(`http://localhost:3000/product/${id}`);
+        console.log("res", response);
+        const product = await response.json();
+        setFormData({
+            id: product[0].id,
+            productName: product[0].productName,
+            brand: product[0].brand,
+            quantity: product[0].quantity,
+            image: product[0].image,
+            price: product[0].price,
+        });
+    }
+
+    useEffect(() => {
+        handleFindDB();
+    }, [])
+
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
     } = useForm({
-        defaultValues: {
-            id: "Default",
-            productName: "Default",
-            brand: "Default",
-            quantity: "Default",
-            image: "Default",
-            price: "Default",
-        },
+        defaultValues: formData.id
+            ? formData
+            : {
+                id: " ",
+                productName: " ",
+                brand: " ",
+                quantity:" " ,
+                image: " ",
+                price: " ",
+                },
     });
-
-    useEffect(() => reset(formData), []);
 
     const handleOnChange = (evt) => {
         const fieldName = evt.target.name;
@@ -49,10 +70,10 @@ export default function AddProduct() {
     const handleOnSubmit = async (evt) => {
         evt.preventDefault;
         setPostResponse("");
-    
+        const id = searchParams.get("id");
         await axios
-            .post("http://localhost:3000/submitProduct", formData)
-            .then((response) => setPostResponse(<p>{response.data}</p>));
+            .patch(`http://localhost:3000/products/${id}`, formData)
+            .then((response) => setPostResponse(<p>{response.data}</p>))
     };
 
     return (
@@ -123,14 +144,12 @@ export default function AddProduct() {
                     />
                     <p>{errors.price?.message}</p>
                 </div>
-                <button className="custom-form-submit-btn">Add Product</button>
+                <button className="custom-form-submit-btn">Edit Product</button>
             </form>
-            <div className="result-panel">{postResponse}</div>
+            <div className="result-panel">{ postResponse ? `${formData.productName} is edited` : ""}</div>
             <button className="custom-form-submit-btn back-to-inventory" onClick={() => navigate("/main")}>
                 Back to Inventory
             </button>
         </div>
     );
 }
-
-
