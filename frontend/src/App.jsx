@@ -1,17 +1,18 @@
 import "./App.css";
-import GroceriesApp from "./pages/GroceriesApp";
-import loginUser from "./pages/loginUser";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import GroceriesApp from "./pages/GroceriesApp";
+// import loginUser from "./pages/loginUser";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <loginUser />
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/main" element={<GroceriesApp />} />
           <Route path="/" element={<loginUser />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </>
   );
 }
