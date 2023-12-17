@@ -4,6 +4,7 @@ import GroceriesApp from "./pages/GroceriesApp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginUser from "./pages/loginUser";
 import PrivateRoutes from "../utilities/PrivateRoutes";
+import NotAuthorized from "./pages/Notauthorized";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
 
           <Route path="/" element={<LoginUser />} />
           <Route path="/CreateUser" element={<CreateUser />} />
-          <Route path="not-authorized" />
+          <Route path="not-authorized" element={<NotAuthorized/>} />
         </Routes>
       </BrowserRouter>
     </>

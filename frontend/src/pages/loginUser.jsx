@@ -11,6 +11,7 @@ export default function LoginUser() {
   });
   const [postResponse, setPostResponse] = useState("");
   const [jwtCookie, setJwtCookie] = useState("");
+  const [getuser,setgetuser] = useState("");
   const navigate = useNavigate();
 
   const makeCookie = (cookie) => {
@@ -29,6 +30,8 @@ export default function LoginUser() {
 
   const postToDB = async (user) => {
     const postUser = { ...user };
+    const uname = user.username
+    setgetuser(uname);
     await axios
       .post("http://localhost:3000/login", postUser)
       .then((response) => {
@@ -36,13 +39,17 @@ export default function LoginUser() {
         if (response.data.message == "Successful Login") {
           const jwtCookie = makeCookie(response.data.token);
           setJwtCookie(jwtCookie);
-          navigate("/app");
+          navigate("/app",{state:{uname:uname}});
+
+            
         }
       });
   };
   const postUser = async (evt) => {
     evt.preventDefault();
     postToDB(formData);
+    
+    
     setFormData({
       username: "",
       password: "",

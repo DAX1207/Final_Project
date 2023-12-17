@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import InventoryForm from "./InventoryForm";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
+
 
 export default function GroceriesApp() {
   const [formData, setFormData] = useState({
@@ -21,6 +22,8 @@ export default function GroceriesApp() {
   const [postResponse, setPostResponse] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const {user} = location.state;
   useEffect(() => {
     handleFindDB();
   }, [postResponse]);
@@ -123,23 +126,12 @@ export default function GroceriesApp() {
     Cookies.remove("jwt-cookie");
     navigate("/");
   };
-  
-
-  const addProduct = () => {
-<InventoryForm
-        handleOnChange={handleOnChange}
-        formData={formData}
-        handleOnSubmit={handleOnSubmit}
-        toggleEdit={toggleEdit}
-      />
-  };
 
   return (
     <>
       <h1>Groceries App</h1>
-
+    <p>{user}</p>
       <button onClick={logout}>Log Out</button>
-      <button onClick={addProduct}>Add Product</button>
       <InventoryForm
         handleOnChange={handleOnChange}
         formData={formData}
