@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 export default function CartList({ cartList, onClickEmpty, onClickRemove }) {
+  const navigate = useNavigate();
+  const buy = () => {
+    navigate("/buy");
+  };
+
   return (
     <div className="CartList-Container">
       {cartList.length > 0 ? (
@@ -29,7 +36,7 @@ export default function CartList({ cartList, onClickEmpty, onClickRemove }) {
           <button className="Remove-Button" onClick={onClickEmpty}>
             Empty Cart
           </button>
-          <button id="Buy-Button">
+          <button id="Buy-Button" onClick={buy(cartList)}>
             <span>Buy-Total: $</span>
             {cartList
               .map((item) => parseFloat(item.price.replace("$", "")))

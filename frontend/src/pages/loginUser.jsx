@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 export default function LoginUser() {
   const [formData, setFormData] = useState({
@@ -48,9 +49,10 @@ export default function LoginUser() {
     });
   };
   return (
-    <div>
+    <div className="login-Container">
+      <h2>Login</h2>
       <form action="" onSubmit={postUser}>
-        <label htmlFor="username"> Username</label>
+        <label htmlFor="username"> Username </label>
         <input
           type="text"
           name="username"
@@ -60,7 +62,7 @@ export default function LoginUser() {
           required
         />
         <br /> <br />
-        <label htmlFor="password"> Password</label>
+        <label htmlFor="password"> Password </label>
         <input
           type="password"
           name="password"
@@ -71,7 +73,9 @@ export default function LoginUser() {
         />
         <br /> <br />
         <button>Log In</button>
-        <p>not a member yet? Click to join</p>
+        <p>
+          Not a member yet? Click <Link to="/CreateUser">here</Link> to join
+        </p>
       </form>
       {<p>{postResponse}</p>}
       {<p>{Cookies.get("jwt-cookie")}</p>}

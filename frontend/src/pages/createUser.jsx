@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 export default function CreateUser() {
   const [formData, setFormData] = useState({
     username: "",
@@ -30,9 +30,10 @@ export default function CreateUser() {
       );
   };
   return (
-    <div>
+    <div className="create-Container">
+      <h2> Create User </h2>
       <form action="" onSubmit={postUser}>
-        <label htmlFor="username"> Username</label>
+        <label htmlFor="username"> Username </label>
         <input
           type="text"
           name="username"
@@ -42,7 +43,7 @@ export default function CreateUser() {
           required
         />
         <br /> <br />
-        <label htmlFor="password"> Password</label>
+        <label htmlFor="password"> Password </label>
         <input
           type="password"
           name="password"
@@ -53,6 +54,9 @@ export default function CreateUser() {
         />
         <br /> <br />
         <button>Submit</button>
+        <p>
+          Go back to <Link to="/"> Login Page </Link>
+        </p>
       </form>
       {postResponse}
     </div>
