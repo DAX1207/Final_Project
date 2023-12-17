@@ -123,12 +123,23 @@ export default function GroceriesApp() {
     Cookies.remove("jwt-cookie");
     navigate("/");
   };
+  
+
+  const addProduct = () => {
+<InventoryForm
+        handleOnChange={handleOnChange}
+        formData={formData}
+        handleOnSubmit={handleOnSubmit}
+        toggleEdit={toggleEdit}
+      />
+  };
 
   return (
     <>
       <h1>Groceries App</h1>
 
       <button onClick={logout}>Log Out</button>
+      <button onClick={addProduct}>Add Product</button>
       <InventoryForm
         handleOnChange={handleOnChange}
         formData={formData}
