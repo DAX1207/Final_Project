@@ -14,7 +14,7 @@ server.use(cors());
 
 mongoose
   .connect(
-    "mongodb+srv://admin:database1234@comp1013-cluster.elf6h5d.mongodb.net/products?retryWrites=true&w=majority"
+    "mongodb+srv://daksh12vyas:dax@cluster0.jvpnqpg.mongodb.net/products?retryWrites=true&w=majority"
   )
   .then((result) => {
     server.listen(port, () => {
