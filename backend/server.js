@@ -7,6 +7,8 @@ const User = require("./models/user");
 const cors = require("cors");
 require("dotenv/config");
 const port = 3000;
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 server.use(express.urlencoded({ extended: false }));
 server.use(express.json());
@@ -67,6 +69,7 @@ server.patch("/products/:id", async (request, response) => {
 ////////////////user registration post
 
 server.post("/register", async (request, response) => {
+  const { username, password } = request.body;
   const newUser = new User({
     username: request.body.username,
   });
@@ -79,4 +82,23 @@ server.post("/register", async (request, response) => {
 
 ///////////////user verfication post
 
-server.post("/login");
+server.post("/login", async (request, response) => {
+  const { username, password } = request.body;
+  const jwtToken = jwt.sign({ id: username }, "token");
+  await User.findOne({ username }).then((user) => {
+    if (user) {
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (err) {
+          response.send(err);
+        }
+        if (res) {
+          response.send({ message: "Successful Login", token: jwtToken });
+        } else {
+          response.send({ message: "Bad authentication" });
+        }
+      });
+    } else {
+      response.send({ message: "Bad authentication exists" });
+    }
+  });
+});

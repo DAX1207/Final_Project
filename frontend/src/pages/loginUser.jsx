@@ -1,12 +1,20 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-export default function loginUser() {
+export default function LoginUser() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
   const [postResponse, setPostResponse] = useState("");
+  const [jwtCookie, setJwtCookie] = useState("");
+  const navigate = useNavigate();
+
+  const makeCookie = (cookie) => {
+    Cookies.set("jwt-cookie", cookie);
+  };
 
   const handleOnChange = (evt) => {
     const { name, value } = evt.target;
@@ -18,17 +26,31 @@ export default function loginUser() {
     });
   };
 
-  const postUser = (evt) => {
-    evt.preventDefault();
-    axios
-      .post("http://localhost:3000/login", formData)
-      .then((response) => setPostResponse(<p>{response.setFormData}</p>));
+  const postToDB = async (user) => {
+    const postUser = { ...user };
+    await axios
+      .post("http://localhost:3000/login", postUser)
+      .then((response) => {
+        setPostResponse(<p>{response.data.message}</p>);
+        if (response.data.message == "Successful Login") {
+          const jwtCookie = makeCookie(response.data.token);
+          setJwtCookie(jwtCookie);
+          navigate("/app");
+        }
+      });
   };
-
+  const postUser = async (evt) => {
+    evt.preventDefault();
+    postToDB(formData);
+    setFormData({
+      username: "",
+      password: "",
+    });
+  };
   return (
     <div>
       <form action="" onSubmit={postUser}>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username"> Username</label>
         <input
           type="text"
           name="username"
@@ -37,7 +59,8 @@ export default function loginUser() {
           value={formData.username}
           required
         />
-        <label htmlFor="password">Password</label>
+        <br /> <br />
+        <label htmlFor="password"> Password</label>
         <input
           type="password"
           name="password"
@@ -46,9 +69,12 @@ export default function loginUser() {
           value={formData.password}
           required
         />
+        <br /> <br />
         <button>Log In</button>
+        <p>not a member yet? Click to join</p>
       </form>
-      {postResponse}
+      {<p>{postResponse}</p>}
+      {<p>{Cookies.get("jwt-cookie")}</p>}
     </div>
   );
 }

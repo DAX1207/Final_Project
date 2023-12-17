@@ -1,18 +1,24 @@
 import "./App.css";
-// import GroceriesApp from "./pages/GroceriesApp";
-// import loginUser from "./pages/loginUser";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CreateUser from "./pages/createUser";
+import GroceriesApp from "./pages/GroceriesApp";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginUser from "./pages/loginUser";
+import PrivateRoutes from "../utilities/PrivateRoutes";
 
 function App() {
   return (
     <>
-      <loginUser />
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path="/main" element={<GroceriesApp />} />
-          <Route path="/" element={<loginUser />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/app" element={<GroceriesApp />} />
+          </Route>
+
+          <Route path="/" element={<LoginUser />} />
+          <Route path="/CreateUser" element={<CreateUser />} />
+          <Route path="not-authorized" />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </>
   );
 }

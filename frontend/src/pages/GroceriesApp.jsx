@@ -3,6 +3,8 @@ import CartList from "./CartList";
 import { useState, useEffect } from "react";
 import InventoryForm from "./InventoryForm";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function GroceriesApp() {
   const [formData, setFormData] = useState({
@@ -18,7 +20,7 @@ export default function GroceriesApp() {
   const [products, setProducts] = useState([]);
   const [postResponse, setPostResponse] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     handleFindDB();
   }, [postResponse]);
@@ -117,9 +119,16 @@ export default function GroceriesApp() {
       .then(setToggleEdit(false));
   };
 
+  const logout = () => {
+    Cookies.remove("jwt-cookie");
+    navigate("/");
+  };
+
   return (
     <>
       <h1>Groceries App</h1>
+
+      <button onClick={logout}>Log Out</button>
       <InventoryForm
         handleOnChange={handleOnChange}
         formData={formData}
