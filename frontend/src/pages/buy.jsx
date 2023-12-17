@@ -4,7 +4,7 @@ export default function buy({ cartList }) {
       <h2>Your Cart</h2>
       <p>No. of Items: {cartList.length}</p>
     </div>
-
+-
     {cartList.map((d) => (
       <div key={d.id} className="Buy-Card">
         <div className="Buy-Card-Info">
