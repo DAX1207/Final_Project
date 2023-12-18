@@ -1,9 +1,12 @@
-export default function InventoryCard({
-  list,
-  onClick,
-  handleProductDelete,
-  handleToggleEdit,
-}) {
+import { useNavigate } from "react-router-dom";
+
+export default function InventoryCard({ list, onClick, handleProductDelete }) {
+  const navigate = useNavigate();
+
+  const editproduct = () => {
+    navigate("/edit-product");
+  };
+
   return (
     <div className="Inventory-Container">
       {list.map((l) => (
@@ -17,7 +20,7 @@ export default function InventoryCard({
           </p>
           <button onClick={() => onClick(l)}>Add to cart</button>
           <div className="Edit-Delete-Container">
-            <button className="Edit-Button" onClick={() => handleToggleEdit(l)}>
+            <button className="Edit-Button" onClick={editproduct}>
               Edit
             </button>
             <button

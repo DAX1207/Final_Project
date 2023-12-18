@@ -1,10 +1,15 @@
-export default function buy({ cartList }) {
-  <div className="CartList-Container">
+import { useLocation } from "react-router-dom";
+
+export default function BuyPage() {
+  const location = useLocation();
+  const cartList = location.state; // Read values passed on state
+  console.log(cartList);
+  <div className="Buy-Container">
     <div>
       <h2>Your Cart</h2>
       <p>No. of Items: {cartList.length}</p>
     </div>
--
+
     {cartList.map((d) => (
       <div key={d.id} className="Buy-Card">
         <div className="Buy-Card-Info">

@@ -29,6 +29,7 @@ export default function LoginUser() {
 
   const postToDB = async (user) => {
     const postUser = { ...user };
+
     await axios
       .post("http://localhost:3000/login", postUser)
       .then((response) => {
@@ -43,6 +44,7 @@ export default function LoginUser() {
   const postUser = async (evt) => {
     evt.preventDefault();
     postToDB(formData);
+
     setFormData({
       username: "",
       password: "",
