@@ -1,11 +1,9 @@
 import InventoryCard from "./InventoryCard";
 import CartList from "./CartList";
 import { useState, useEffect } from "react";
-import InventoryForm from "./InventoryForm";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate,useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export default function GroceriesApp() {
   const [formData, setFormData] = useState({
@@ -22,8 +20,7 @@ export default function GroceriesApp() {
   const [postResponse, setPostResponse] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const {user} = location.state;
+
   useEffect(() => {
     handleFindDB();
   }, [postResponse]);
@@ -127,17 +124,21 @@ export default function GroceriesApp() {
     navigate("/");
   };
 
+  const addproduct = () => {
+    navigate("/add-product");
+  };
   return (
     <>
       <h1>Groceries App</h1>
-    <p>{user}</p>
+
       <button onClick={logout}>Log Out</button>
-      <InventoryForm
+      <button onClick={addproduct}>Add Product</button>
+      {/* <InventoryForm
         handleOnChange={handleOnChange}
         formData={formData}
         handleOnSubmit={handleOnSubmit}
         toggleEdit={toggleEdit}
-      />
+      /> */}
       {postResponse}
       <div className="GroceriesApp-Container">
         <InventoryCard
@@ -145,8 +146,6 @@ export default function GroceriesApp() {
           onClick={handleAddToCart}
           handleToggleEdit={handleToggleEdit}
           handleProductDelete={handleProductDelete}
-
-          // newList={newProducts}
         />
         <CartList
           cartList={cartList}

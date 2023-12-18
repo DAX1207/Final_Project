@@ -1,10 +1,10 @@
-export default function buy({ cartList }) {
+export default function BuyPage({ cartList }) {
   <div className="CartList-Container">
     <div>
       <h2>Your Cart</h2>
       <p>No. of Items: {cartList.length}</p>
     </div>
--
+    -
     {cartList.map((d) => (
       <div key={d.id} className="Buy-Card">
         <div className="Buy-Card-Info">
@@ -13,7 +13,6 @@ export default function buy({ cartList }) {
         </div>
       </div>
     ))}
-
     <div className="Buy-Button">
       <p>
         total :
