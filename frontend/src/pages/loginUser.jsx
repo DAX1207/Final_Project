@@ -80,7 +80,6 @@ export default function LoginUser() {
         </p>
       </form>
       {<p>{postResponse}</p>}
-      {<p>{Cookies.get("jwt-cookie")}</p>}
     </div>
   );
 }

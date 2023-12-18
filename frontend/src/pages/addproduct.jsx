@@ -59,7 +59,8 @@ export default function AddProduct() {
     <div className="custom-form-container">
       <form action="" onSubmit={handleSubmit(handleOnSubmit)}>
         <div className="custom-form-input">
-          <label htmlFor="productName">Product Name</label>
+          <h3>Add Product</h3>
+          <label htmlFor="productName">Product Name </label>
           <input
             type="text"
             {...register("productName", {
@@ -72,7 +73,7 @@ export default function AddProduct() {
           <p>{errors.productName?.message}</p>
         </div>
         <div className="custom-form-input">
-          <label htmlFor="brand">Brand</label>
+          <label htmlFor="brand">Brand </label>
           <input
             type="text"
             {...register("brand", {
@@ -85,7 +86,7 @@ export default function AddProduct() {
           <p>{errors.brand?.message}</p>
         </div>
         <div className="custom-form-input">
-          <label htmlFor="quantity">Quantity</label>
+          <label htmlFor="quantity">Quantity </label>
           <input
             type="text"
             {...register("quantity", {
@@ -98,7 +99,7 @@ export default function AddProduct() {
           <p>{errors.quantity?.message}</p>
         </div>
         <div className="custom-form-input">
-          <label htmlFor="image">Image Link</label>
+          <label htmlFor="image">Image Link </label>
           <input
             type="text"
             {...register("image", {
@@ -111,7 +112,7 @@ export default function AddProduct() {
           <p>{errors.image?.message}</p>
         </div>
         <div className="custom-form-input">
-          <label htmlFor="price">Price</label>
+          <label htmlFor="price">Price </label>
           <input
             type="text"
             {...register("price", {
@@ -123,9 +124,10 @@ export default function AddProduct() {
           />
           <p>{errors.price?.message}</p>
         </div>
-        <button className="custom-form-submit-btn">Add Product</button>
+        <button className="custom-form-submit-btn">Add Product </button>
       </form>
       <div className="result-panel">{postResponse}</div>
+      <br />
       <button
         className="custom-form-submit-btn back-to-inventory"
         onClick={() => navigate("/app")}

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 export default function InventoryCard({ list, onClick, handleProductDelete }) {
   const navigate = useNavigate();
 
-  const editproduct = () => {
-    navigate("/edit-product");
+  const editproduct = (l) => {
+    navigate("/edit-product", { state: { product: l } });
   };
 
   return (
@@ -20,7 +20,7 @@ export default function InventoryCard({ list, onClick, handleProductDelete }) {
           </p>
           <button onClick={() => onClick(l)}>Add to cart</button>
           <div className="Edit-Delete-Container">
-            <button className="Edit-Button" onClick={editproduct}>
+            <button className="Edit-Button" onClick={() => editproduct(l)}>
               Edit
             </button>
             <button

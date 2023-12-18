@@ -155,3 +155,18 @@ img {
   padding: 10px;
   border-radius: 5px;
 }
+
+.custom-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 2px wheat solid;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 120px;
+  font-size: 20px;
+}
+
+.PageNotFound {
+  font-size: xxx-large;
+}

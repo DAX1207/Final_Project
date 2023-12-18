@@ -7,7 +7,8 @@ import PrivateRoutes from "../utilities/PrivateRoutes";
 import NotAuthorized from "./pages/Notauthorized";
 import BuyPage from "./pages/buyPage";
 import AddProduct from "./pages/addproduct";
-import EditProduct from "./pages/editProduct";
+import EditProduct from "./pages/EditProduct";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -17,13 +18,14 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path="/app" element={<GroceriesApp />} />
           </Route>
+          <Route path="/edit-product" element={<EditProduct />} />
 
           <Route path="/" element={<LoginUser />} />
           <Route path="/CreateUser" element={<CreateUser />} />
           <Route path="/not-authorized" element={<NotAuthorized />} />
           <Route path="/Buy-Page" element={<BuyPage />} />
           <Route path="/add-product" element={<AddProduct />} />
-          <Route path="/edit-product" element={<EditProduct />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -66,15 +66,14 @@ export default function GroceriesApp() {
         <h3>Welcome {u}</h3>
         <button onClick={logout}>Log Out</button>
       </div>
-
+      <br />
       <button onClick={addproduct}>Add Product</button>
-
+      <br />
       {postResponse}
       <div className="GroceriesApp-Container">
         <InventoryCard
           list={products}
           onClick={handleAddToCart}
-          // handleToggleEdit={handleToggleEdit}
           handleProductDelete={handleProductDelete}
         />
         <CartList
