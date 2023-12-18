@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
-export default function AddProduct() {
-    const [searchParams, setSearchParams] = useSearchParams();
+export default function EditProduct() {
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: "",
@@ -18,7 +18,6 @@ export default function AddProduct() {
     const [postResponse, setPostResponse] = useState("");
 
     async function handleFindDB() {
-        console.log
         const id = searchParams.get("id");
         const response = await fetch(`http://localhost:3000/product/${id}`);
         console.log("res", response);
@@ -52,7 +51,7 @@ export default function AddProduct() {
                 quantity:" " ,
                 image: " ",
                 price: " ",
-                },
+            },
     });
 
     const handleOnChange = (evt) => {
