@@ -4,12 +4,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export default function GroceriesApp() {
   const [cartList, setCartList] = useState([]);
   const [products, setProducts] = useState([]);
   const [postResponse, setPostResponse] = useState("");
   const navigate = useNavigate();
+
+  const token = Cookies.get("jwt-cookie");
+  const decoded = jwtDecode(token);
+  const u = decoded.id;
 
   useEffect(() => {
     handleFindDB();
@@ -57,7 +62,11 @@ export default function GroceriesApp() {
     <>
       <h1>Groceries App</h1>
 
-      <button onClick={logout}>Log Out</button>
+      <div className="welcome">
+        <h3>Welcome {u}</h3>
+        <button onClick={logout}>Log Out</button>
+      </div>
+
       <button onClick={addproduct}>Add Product</button>
 
       {postResponse}
