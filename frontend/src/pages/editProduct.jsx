@@ -41,7 +41,6 @@ export default function EditProduct() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     defaultValues: formData.id
       ? formData
@@ -151,7 +150,7 @@ export default function EditProduct() {
       </div>
       <button
         className="custom-form-submit-btn back-to-inventory"
-        onClick={() => navigate("/main")}
+        onClick={() => navigate("/app")}
       >
         Back to Inventory
       </button>

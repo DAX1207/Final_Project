@@ -6,19 +6,9 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function GroceriesApp() {
-  const [formData, setFormData] = useState({
-    id: "",
-    productName: "",
-    brand: "",
-    quantity: "",
-    image: "",
-    price: "",
-  });
-
   const [cartList, setCartList] = useState([]);
   const [products, setProducts] = useState([]);
   const [postResponse, setPostResponse] = useState("");
-  const [toggleEdit, setToggleEdit] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,49 +20,6 @@ export default function GroceriesApp() {
     const products = await response.json();
     setProducts(products);
   }
-
-  const handlePostDB = async (product) => {
-    const postData = {
-      id: crypto.randomUUID(),
-      productName: product.productName,
-      brand: product.brand,
-      quantity: product.quantity,
-      image: product.image,
-      price: product.price,
-    };
-
-    await axios
-      .post("http://localhost:3000/submitProduct", postData)
-      .then((response) => setPostResponse(<p>{response.data}</p>));
-  };
-
-  const handleOnChange = (evt) => {
-    const fieldName = evt.target.name;
-    const fieldValue = evt.target.value;
-    console.log(fieldName);
-    setFormData((prevData) => {
-      return {
-        ...prevData,
-        id: crypto.randomUUID(),
-        [fieldName]: fieldValue,
-      };
-    });
-  };
-
-  const handleOnSubmit = (evt) => {
-    evt.preventDefault;
-    setPostResponse("");
-    toggleEdit ? handleEditProduct(formData) : handlePostDB(formData);
-    setFormData({
-      id: "",
-      productName: "",
-      brand: "",
-      quantity: "",
-      image: "",
-      price: "",
-    });
-    console.log("Here!");
-  };
 
   const handleAddToCart = (item) => {
     setCartList((prevList) => {
@@ -91,32 +38,11 @@ export default function GroceriesApp() {
     });
   };
 
-  const handleToggleEdit = (product) => {
-    setFormData(product);
-    setToggleEdit(true);
-  };
-
   const handleProductDelete = async (product) => {
     const id = product._id;
     await axios
       .delete(`http://localhost:3000/products/${id}`)
       .then((response) => setPostResponse(<p>{response.data}</p>));
-  };
-
-  const handleEditProduct = async (product) => {
-    const id = product._id;
-    const postData = {
-      id: product._id,
-      productName: product.productName,
-      brand: product.brand,
-      quantity: product.quantity,
-      image: product.image,
-      price: product.price,
-    };
-    await axios
-      .patch(`http://localhost:3000/products/${id}`, postData)
-      .then((response) => setPostResponse(<p>{response.data}</p>))
-      .then(setToggleEdit(false));
   };
 
   const logout = () => {
@@ -133,18 +59,13 @@ export default function GroceriesApp() {
 
       <button onClick={logout}>Log Out</button>
       <button onClick={addproduct}>Add Product</button>
-      {/* <InventoryForm
-        handleOnChange={handleOnChange}
-        formData={formData}
-        handleOnSubmit={handleOnSubmit}
-        toggleEdit={toggleEdit}
-      /> */}
+
       {postResponse}
       <div className="GroceriesApp-Container">
         <InventoryCard
           list={products}
           onClick={handleAddToCart}
-          handleToggleEdit={handleToggleEdit}
+          // handleToggleEdit={handleToggleEdit}
           handleProductDelete={handleProductDelete}
         />
         <CartList
