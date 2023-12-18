@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function CartList({ cartList, onClickEmpty, onClickRemove }) {
   const navigate = useNavigate();
   const buy = () => {
-    navigate("/buy(cartList)", cartList);
+    navigate("/buy", { state: { cartList: cartList } });
   };
 
   return (
